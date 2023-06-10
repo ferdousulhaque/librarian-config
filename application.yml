@@ -4,8 +4,3 @@ logging:
       springframework:
         security: DEBUG
       arun: DEBUG
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
