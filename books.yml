@@ -1,6 +1,6 @@
 server:
   port: 8080
----
+message: "Testing"
 spring:
   profiles: default | dev
   application:
@@ -19,7 +19,7 @@ spring:
         format_sql: true
     show-sql: true
   config:
-    import: "http://localhost:8888"
+    import: "configserver:http://localhost:8888"
   bus:
     enabled: true
   profile:
