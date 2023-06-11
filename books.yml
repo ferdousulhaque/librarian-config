@@ -1,29 +1,48 @@
 server:
   port: 8080
 message: "Testing"
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 8000
+        readTimeout: 8000
+        loggerLevel: basic
 spring:
-  profiles: default | dev
-  application:
-    name: books
   datasource:
-    url: jdbc:mysql://localhost:3307/librarian
-    username: admin
-    password: admin
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    continue-on-error: true
+    initialization-mode: always
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
         format_sql: true
     show-sql: true
-  config:
-    import: "configserver:http://localhost:8888"
   bus:
     enabled: true
-  profile:
-    active: dev
+---
+spring:
+  profiles: default | dev
+  datasource:
+    url: jdbc:mysql://localhost:3307/librarian
+    username: admin
+    password: admin
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+    fetch-registry: true
+    register-with-eureka: true
+---
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://localhost:3307/librarian
+    username: admin
+    password: admin
 eureka:
   client:
     service-url:
